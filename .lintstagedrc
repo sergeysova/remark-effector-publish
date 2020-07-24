@@ -1,0 +1,21 @@
+{
+  "*.css": ["prettier --write", "git add"],
+  "*.scss": ["prettier --write", "git add"],
+  "*.html": ["prettier --write", "git add"],
+  "*.htm": ["prettier --write", "git add"],
+  "*.yaml": ["prettier --write", "git add"],
+  "*.yml": ["prettier --write", "git add"],
+  "*.ts": ["prettier --write", "git add"],
+  "*.tsx": ["prettier --write", "git add"],
+  "*.js": ["prettier --write", "git add"],
+  "*.jsx": ["prettier --write", "git add"],
+  "*.mjs": ["prettier --write", "git add"],
+  "*.cjs": ["prettier --write", "git add"],
+  "*.json": ["prettier --write --parser json", "git add"],
+  ".huskyrc": ["prettier --write --parser json", "git add"],
+  ".prettierrc": ["prettier --write --parser json", "git add"],
+  ".lintstagedrc": ["prettier --write --parser json", "git add"],
+  ".eslintrc": ["prettier --write --parser json", "git add"],
+  ".commitlintrc": ["prettier --write --parser json", "git add"],
+  ".babelrc": ["prettier --write --parser json", "git add"]
+}

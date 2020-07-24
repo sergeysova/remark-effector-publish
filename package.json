@@ -1,0 +1,45 @@
+{
+  "name": "remark-effector-share",
+  "version": "0.1.0",
+  "description": "Plugin to download code from effector share",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest",
+    "build": "babel src --out-dir dist",
+    "format": "prettier --write \"./src/**/**.{ts,tsx,js,jsx,json}\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sergeysova/remark-effector-share.git"
+  },
+  "keywords": ["effector", "remark", "unified", "js", "markdown"],
+  "author": "Sergey Sova <mail@sergeysova.com> (https://sova.dev/)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/sergeysova/remark-effector-share/issues"
+  },
+  "homepage": "https://github.com/sergeysova/remark-effector-share#readme",
+  "devDependencies": {
+    "@types/jest": "^26.0.7",
+    "babel-cli": "^6.26.0",
+    "babel-preset-env": "^1.7.0",
+    "fetch-mock": "^9.10.4",
+    "husky": "^3.1.0",
+    "import-sort-style-sova": "^0.1.0",
+    "isomorphic-fetch": "^2.2.1",
+    "jest": "^26.1.0",
+    "lint-staged": "^9.5.0",
+    "prettier": "^2.0.5",
+    "prettier-plugin-import-sort": "^0.0.4",
+    "remark-parse": "^8.0.3",
+    "remark-stringify": "^8.1.1",
+    "to-vfile": "^6.1.0",
+    "unified": "^9.1.0",
+    "vfile": "^4.1.1"
+  },
+  "importSort": {
+    ".js, .jsx, .mjs, .cjs": {
+      "style": "sova"
+    }
+  }
+}
