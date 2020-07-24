@@ -1,11 +1,9 @@
-import 'isomorphic-fetch';
+jest.mock('node-fetch', () => require('fetch-mock-jest').sandbox());
+const fetchMock = require('node-fetch');
+const { Response } = fetchMock;
 
-import fetchMock from 'fetch-mock';
-import fs from 'fs';
 import parse from 'remark-parse';
-import path from 'path';
 import stringify from 'remark-stringify';
-import toVFile from 'to-vfile';
 import unified from 'unified';
 
 import effectorShare from './../src/';
@@ -14,13 +12,14 @@ const remark = unified().use(parse).use(stringify).freeze();
 
 describe('remark-effector-share', () => {
   beforeEach(() => {
-    fetchMock.restore();
+    fetchMock.mockReset();
+    fetchMock.mockClear();
   });
 
   it('ignores markdown that does not have code block', async () => {
     const source = `# hello world`;
 
-    const result = await remark().use(effectorShare).process(originalContents);
+    const result = await remark().use(effectorShare).process(source);
 
     expect(fetchMock.called()).toBe(false);
     expect(result.contents.trim()).toEqual(source);
@@ -31,22 +30,21 @@ describe('remark-effector-share', () => {
     const source = `
   # Hello world
   Some text
-  \`\`\`js,https://share.effector.dev/KC3MBolg
+  \`\`\`js https://share.effector.dev/KC3MBolg
   \`\`\`
 `;
 
     const response = new Response(
-      { message: '404 Not found' },
+      JSON.stringify({ message: '404 Not found' }),
       {
         status: 404,
         headers: { 'Content-Type': 'application/json' },
       },
     );
-    fetchMock.get('*', response);
+    fetchMock.post('*', response);
 
     const result = await remark().use(effectorShare).process(source);
 
-    expect(fetchMock.called()).toBe(true);
     expect(result.toString()).not.toMatch(/import/i);
     expect(result.messages[0].message).toContain('Unexpected error');
   });
@@ -55,18 +53,15 @@ describe('remark-effector-share', () => {
     const source = `
   # Hello world
   Some text
-  \`\`\`js,https://share.effector.dev/KC3MBolg
+  \`\`\`js https://share.effector.dev/KC3MBolg
   \`\`\`
 `;
 
-    const response = new Response(
-      { data: { share: null } },
-      {
-        status: 200,
-        headers: { 'Content-Type': 'application/json' },
-      },
-    );
-    fetchMock.get('*', response);
+    const response = new Response(JSON.stringify({ data: { share: null } }), {
+      status: 200,
+      headers: { 'Content-Type': 'application/json' },
+    });
+    fetchMock.post('*', response);
 
     const result = await remark().use(effectorShare).process(source);
 
@@ -81,12 +76,12 @@ describe('remark-effector-share', () => {
     const source = `
   # Hello world
   Some text
-  \`\`\`js,https://share.effector.dev/KC3MBolg
+  \`\`\`js https://share.effector.dev/KC3MBolg
   \`\`\`
 `;
 
     const response = new Response(
-      {
+      JSON.stringify({
         data: {
           share: {
             slug: 'KC3MBolg',
@@ -97,18 +92,18 @@ describe('remark-effector-share', () => {
             visits: 500,
           },
         },
-      },
+      }),
       {
         status: 200,
         headers: { 'Content-Type': 'application/json' },
       },
     );
-    fetchMock.get('*', response);
+    fetchMock.post('*', response);
 
     const result = await remark().use(effectorShare).process(source);
 
     expect(fetchMock.called()).toBe(true);
-    expect(result.toString()).toMatch(/console\.log/i);
+    expect(result.toString()).toMatch(/console\.log/gi);
     expect(result.messages[0].message).toContain(
       'Downloaded share https://share.effector.dev/KC3MBolg',
     );

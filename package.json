@@ -2,7 +2,7 @@
   "name": "remark-effector-share",
   "version": "0.1.0",
   "description": "Plugin to download code from effector share",
-  "main": "index.js",
+  "main": "dist/index.js",
   "scripts": {
     "test": "jest",
     "build": "babel src --out-dir dist",
@@ -23,17 +23,15 @@
     "@types/jest": "^26.0.7",
     "babel-cli": "^6.26.0",
     "babel-preset-env": "^1.7.0",
-    "fetch-mock": "^9.10.4",
+    "fetch-mock-jest": "^1.3.0",
     "husky": "^3.1.0",
     "import-sort-style-sova": "^0.1.0",
-    "isomorphic-fetch": "^2.2.1",
     "jest": "^26.1.0",
     "lint-staged": "^9.5.0",
     "prettier": "^2.0.5",
     "prettier-plugin-import-sort": "^0.0.4",
     "remark-parse": "^8.0.3",
     "remark-stringify": "^8.1.1",
-    "to-vfile": "^6.1.0",
     "unified": "^9.1.0",
     "vfile": "^4.1.1"
   },
@@ -41,5 +39,9 @@
     ".js, .jsx, .mjs, .cjs": {
       "style": "sova"
     }
+  },
+  "dependencies": {
+    "node-fetch": "^2.6.0",
+    "unist-util-visit": "^2.0.3"
   }
 }
