@@ -6,8 +6,10 @@
   "scripts": {
     "test": "jest",
     "build": "babel src --out-dir dist",
-    "format": "prettier --write \"./src/**/**.{ts,tsx,js,jsx,json}\""
+    "format": "prettier --write \"./src/**/**.{ts,tsx,js,jsx,json}\"",
+    "prepublishOnly": "yarn build"
   },
+  "files": ["dist/index.js"],
   "repository": {
     "type": "git",
     "url": "git+https://github.com/sergeysova/remark-effector-share.git"
