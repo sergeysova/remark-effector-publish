@@ -2,7 +2,7 @@
 
 [![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg)](http://prettier.io)
 
-A [remark](https://github.com/wooorm/remark) plugin that downloads source code of the [effector])(https://effector.now.sh) [repl sharing](https://share.effector.dev).
+A [remark](https://github.com/wooorm/remark) plugin that downloads source code of the [effector](https://effector.dev) [repl sharing](https://share.effector.dev).
 
 ## Installation
 
